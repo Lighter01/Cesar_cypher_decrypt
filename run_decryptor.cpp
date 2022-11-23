@@ -3,6 +3,10 @@
 #include <fstream>
 #include <sstream>
 
+#include <iostream>
+
+#include "ceaser_chipher_decryption.h"
+
 void methods::readEncryptedData()
 {
     std::wifstream file("data/student_18.csv");
@@ -40,4 +44,7 @@ void methods::readEncryptedData()
 void methods::testProg()
 {
     methods::readEncryptedData();
+    countEncryptedDomainNames(containers::email);
+    readDomainList();
+    CeaserChipherDecrypt(containers::email);
 }

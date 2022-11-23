@@ -9,7 +9,4 @@ int main()
     SetConsoleOutputCP(1251);
 
     methods::testProg();
-    for (const auto& it : containers::address) {
-        std::cout << it << "\n";
-    }
 }
