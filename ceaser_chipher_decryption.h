@@ -6,6 +6,6 @@
 #include <map>
 
 
-void countDomainNames(std::map<std::string, int>& domainNames);
+void countDomainNames(std::map<std::wstring, int>& domainNames);
 
 #endif // CEASER_CHIPHER_DECRYPTION_H

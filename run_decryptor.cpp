@@ -5,16 +5,16 @@
 
 void methods::readEncryptedData()
 {
-    std::ifstream file("data/student_18.csv");
-    std::string tmp_string;
-    std::stringstream tmp_stream;
+    std::wifstream file("data/student_18.csv");
+    std::wstring tmp_string;
+    std::wstringstream tmp_stream;
     int counter;
 
     while (std::getline(file, tmp_string)) {
         tmp_stream << tmp_string;
 
         counter = 0;
-        while (std::getline(tmp_stream, tmp_string, ';')) {
+        while (std::getline(tmp_stream, tmp_string, L';')) {
             switch (counter++) {
                 case 0: {
                     containers::phone.push_back(tmp_string);
