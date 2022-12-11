@@ -6,9 +6,9 @@
 
 namespace containers
 {
-    inline std::vector<std::wstring> phone;
-    inline std::vector<std::wstring> email;
-    inline std::vector<std::wstring> address;
+    inline std::vector<std::string> phone;
+    inline std::vector<std::string> email;
+    inline std::vector<std::string> address;
 }
 
 namespace methods

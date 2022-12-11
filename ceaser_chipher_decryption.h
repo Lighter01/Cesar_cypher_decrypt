@@ -8,17 +8,17 @@
 
 namespace domains
 {
-    inline std::map<std::wstring, int> EncryptedDomain;
-    inline std::set<std::wstring>      DomainsList({});
+    inline std::map<std::string, int> EncryptedDomain;
+    inline std::set<std::string>      DomainsList({});
 }
 
 void readDomainList();
 
-void countEncryptedDomainNames(const std::vector<std::wstring>& domainNames);
+void countEncryptedDomainNames(const std::vector<std::string>& domainNames);
 
 
-std::wstring CeaserShift(const std::wstring& line, const int& key);
+std::string CeaserShift(const std::string& line, const int& key);
 
-void CeaserChipherDecrypt(std::vector<std::wstring>& email, std::vector<std::wstring>& address);
+void CeaserChipherDecrypt(std::vector<std::string>& email, std::vector<std::string>& address);
 
 #endif // CEASER_CHIPHER_DECRYPTION_H

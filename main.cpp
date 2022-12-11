@@ -5,6 +5,8 @@
 
 int main()
 {
+
+
     setlocale(LC_ALL, "ru");
     SetConsoleOutputCP(1251);
     methods::testProg();

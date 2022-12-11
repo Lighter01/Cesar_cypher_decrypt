@@ -7,10 +7,12 @@
 #include <fstream>
 #include <sstream>
 
+#include <cmath>
+
 void readDomainList()
 {
-    std::wifstream file("data/domains_list.txt");
-    std::wstring tmp_string;
+    std::ifstream file("data/domains_list.txt");
+    std::string tmp_string;
 
     while (std::getline(file, tmp_string)) {
         domains::DomainsList.insert(tmp_string);
@@ -20,7 +22,7 @@ void readDomainList()
     return;
 }
 
-void countEncryptedDomainNames(const std::vector<std::wstring>& domainNames)
+void countEncryptedDomainNames(const std::vector<std::string>& domainNames)
 {
 
     for (const auto& it : domainNames) {
@@ -28,34 +30,62 @@ void countEncryptedDomainNames(const std::vector<std::wstring>& domainNames)
     }
 
     for (const auto& it : domains::EncryptedDomain) {
-        std::wcout << it.first << L" " << it.second << L"\n";
+        std::cout << it.first << " " << it.second << "\n";
     }
 
     return;
 }
 
 
-std::wstring CeaserShift(const std::wstring& line, const int& key)
+std::string CeaserShift(const std::string& line, const int& key)
 {
-    std::wstring result;
-    for (auto& it : line) {
-        if (it >= L'a') {
-            if ((it + key) / 123 == 0) {
-                result += static_cast<wchar_t>(it + key);
+    std::string result;
+    for (auto it : line) {
+        if (it > 0) {
+            if (it >= 'a') {
+                if ((it + key) / 123 == 0) {
+                    result += static_cast<char>(it + key);
+                } else {
+                    result += static_cast<char>('a' + ((it + key) % 123));
+                }
             } else {
-                result += static_cast<wchar_t>(L'a' + ((it + key) % 123));
+                result += it;
             }
-        } else {
-            result += it;
+        }
+        else {
+
+            if (it == -72) { // если ё
+                it = -8;
+            }
+            else if (it == -88) { // если Ё
+                it = -40;
+            }
+
+            if (it < -32) { // Заглавные
+                if ((it + key) <= -1) { // не вышли за "Я"
+                    result += static_cast<char>(it + key);
+                }
+                else { // вышли за "Я"
+                    result += static_cast<char>((-64) + (it + key));
+                }
+            }
+            else { // строчные
+                if ((it + key) <= -1) { // не вышли за "я"
+                    result += static_cast<char>(it + key);
+                }
+                else { // вышли за "я"
+                    result += static_cast<char>((-32) + (it + key));
+                }
+            }
         }
     }
 
     return result;
 }
 
-void CeaserChipherDecrypt(std::vector<std::wstring>& email, std::vector<std::wstring>& address)
+void CeaserChipherDecrypt(std::vector<std::string>& email, std::vector<std::string>& address)
 {
-    std::wstring tmp_string;
+    std::string tmp_string;
     int key;
 
     for (int i = 0; i < email.size(); ++i) {
@@ -66,10 +96,10 @@ void CeaserChipherDecrypt(std::vector<std::wstring>& email, std::vector<std::wst
             tmp_string = CeaserShift(email.at(i), ++key);
         } while (key != 25 && domains::DomainsList.find(tmp_string.substr(tmp_string.rfind('.') + 1)) == domains::DomainsList.end());
 
-        std::wcout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
+        std::cout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
 
-        tmp_string = CeaserShift(address.at(i), key);
-        std::wcout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
+        tmp_string = CeaserShift(address.at(i), key + 6);
+        std::cout << address.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key + 6 << '\n';
     }
 }
 

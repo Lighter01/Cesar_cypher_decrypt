@@ -9,16 +9,16 @@
 
 void methods::readEncryptedData()
 {
-    std::wifstream file("data/student_v.1.18.csv");
-    std::wstring tmp_string;
-    std::wstringstream tmp_stream;
+    std::ifstream file("data/student_v.1.18.csv");
+    std::string tmp_string;
+    std::stringstream tmp_stream;
     int counter;
 
     while (std::getline(file, tmp_string)) {
         tmp_stream << tmp_string;
 
         counter = 0;
-        while (std::getline(tmp_stream, tmp_string, L';')) {
+        while (std::getline(tmp_stream, tmp_string, ';')) {
             switch (counter++) {
                 case 0: {
                     containers::phone.push_back(tmp_string);
@@ -44,7 +44,7 @@ void methods::readEncryptedData()
 void methods::testProg()
 {
     methods::readEncryptedData();
-    countEncryptedDomainNames(containers::email);
+//    countEncryptedDomainNames(containers::email);
     readDomainList();
     CeaserChipherDecrypt(containers::email, containers::address);
 }
