@@ -19,6 +19,6 @@ void countEncryptedDomainNames(const std::vector<std::wstring>& domainNames);
 
 std::wstring CeaserShift(const std::wstring& line, const int& key);
 
-void CeaserChipherDecrypt(std::vector<std::wstring>& email);
+void CeaserChipherDecrypt(std::vector<std::wstring>& email, std::vector<std::wstring>& address);
 
 #endif // CEASER_CHIPHER_DECRYPTION_H

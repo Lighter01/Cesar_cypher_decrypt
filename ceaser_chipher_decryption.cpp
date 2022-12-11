@@ -53,24 +53,23 @@ std::wstring CeaserShift(const std::wstring& line, const int& key)
     return result;
 }
 
-void CeaserChipherDecrypt(std::vector<std::wstring>& email)
+void CeaserChipherDecrypt(std::vector<std::wstring>& email, std::vector<std::wstring>& address)
 {
     std::wstring tmp_string;
     int key;
 
-    for (auto& it : email) {
+    for (int i = 0; i < email.size(); ++i) {
 
-        key = 1;
+        key = 0;
 
         do {
-            tmp_string = CeaserShift(it, key++);
-        } while (key != 26 && domains::DomainsList.find(tmp_string.substr(tmp_string.rfind('.') + 1)) == domains::DomainsList.end());
+            tmp_string = CeaserShift(email.at(i), ++key);
+        } while (key != 25 && domains::DomainsList.find(tmp_string.substr(tmp_string.rfind('.') + 1)) == domains::DomainsList.end());
 
-        if (key != 26) {
-            std::wcout << it << "    turns into ---->   "<< tmp_string << '\n';
-        } else {
-            std::wcout << it << "    failed to encrypt\n";
-        }
+        std::wcout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
+
+        tmp_string = CeaserShift(address.at(i), key);
+        std::wcout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
     }
 }
 

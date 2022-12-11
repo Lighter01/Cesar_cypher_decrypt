@@ -9,7 +9,7 @@
 
 void methods::readEncryptedData()
 {
-    std::wifstream file("data/student_18.csv");
+    std::wifstream file("data/student_v.1.18.csv");
     std::wstring tmp_string;
     std::wstringstream tmp_stream;
     int counter;
@@ -46,5 +46,5 @@ void methods::testProg()
     methods::readEncryptedData();
     countEncryptedDomainNames(containers::email);
     readDomainList();
-    CeaserChipherDecrypt(containers::email);
+    CeaserChipherDecrypt(containers::email, containers::address);
 }
