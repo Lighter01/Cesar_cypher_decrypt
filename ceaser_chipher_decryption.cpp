@@ -85,6 +85,7 @@ std::string CeaserShift(const std::string& line, const int& key)
 
 void CeaserChipherDecrypt(std::vector<std::string>& email, std::vector<std::string>& address)
 {
+    std::ofstream result("result.csv");
     std::string tmp_string;
     int key;
 
@@ -96,11 +97,13 @@ void CeaserChipherDecrypt(std::vector<std::string>& email, std::vector<std::stri
             tmp_string = CeaserShift(email.at(i), ++key);
         } while (key != 25 && domains::DomainsList.find(tmp_string.substr(tmp_string.rfind('.') + 1)) == domains::DomainsList.end());
 
-        std::cout << email.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key << '\n';
+        result << email.at(i) << ';' << tmp_string << ";key: " << key << ';';
 
         tmp_string = CeaserShift(address.at(i), key + 6);
-        std::cout << address.at(i) << "    turns into ---->   "<< tmp_string << " key: " << key + 6 << '\n';
+        result << address.at(i) << ';'<< tmp_string << ";key: " << key + 6 << '\n';
     }
+
+    result.close();
 }
 
 
