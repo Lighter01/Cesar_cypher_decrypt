@@ -27,13 +27,20 @@ void readDomainList();
 void countEncryptedDomainNames(const std::vector<std::string>& domainNames);
 
 /*!
- * \brief CeaserShift -
- * \param line
- * \param key
+ * \brief CeaserShift - функция, осуществляющая сдвиг слова по алфавиту дешифровки.
+ * \param line - зашифрованная строка
+ * \param key - сдвиг
  * \return
  */
 std::string CeaserShift(const std::string& line, const int& key);
 
+/*!
+ * \brief CeaserChipherDecrypt - функция, осуществляющая дешифровку исходных данных, зашифрованных шифром Цезаря.
+ *
+ * Подбирает нужный ключ, опираясь на доменные имена потчовых адресов, после чего распространяет найденный ключ на зашифрованные адреса домов.
+ * \param email - зашифрованные почтовые адреса
+ * \param address - зашифрованные адреса домов
+ */
 void CeaserChipherDecrypt(std::vector<std::string>& email, std::vector<std::string>& address);
 
 #endif // CEASER_CHIPHER_DECRYPTION_H
